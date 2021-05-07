@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript",
+    "eslint:recommended"
+  ],
+  "plugins": ["prettier", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": "error",
+    "quotes": ["error", "backtick"]
+  }
+}
