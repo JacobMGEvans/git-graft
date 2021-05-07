@@ -1,7 +1,7 @@
 git-graft
 =========
 
-git hook generator that creates a hook that prepends branch name code to commit messages
+CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/git-graft.svg)](https://npmjs.org/package/git-graft)
