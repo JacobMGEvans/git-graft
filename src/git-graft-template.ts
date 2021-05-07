@@ -1,25 +1,93 @@
-// #!/bin/bash
-// # Turn into a initilized stateful CLI tool
-// # 1. Get Branch names
-// # 2. Add Branch name into commits
-// # 3. Make it configuration based --> use CLI tooling/libraries
-// # 4. Prompt User for init configs
-// # 5. In Configs have patterns/regex for improving the Branch Name => Commit Message i.e. feature/JIRA-number:description (user may only want JIRA-number)
+#!/usr/bin/env node
 
-// # This way you can customize which branches should be skipped when
-// # prepending commit message.
-// if [ -z "$BRANCHES_TO_SKIP" ]; then
-// # Dynamically get branches to exclude from the prepending from config
-//   BRANCHES_TO_SKIP=(main staging)
-// fi
+import fs = require("fs");
+import util = require("util");
+const childProcessExec = require("child_process").exec;
 
-// # Grabs the branch name
-// BRANCH_NAME=$(git symbolic-ref --short HEAD)
-// BRANCH_NAME="${BRANCH_NAME##*/}"
+const BRANCH_CONTRACT = /^(feature|hotfix)\/AP-[0-9]{1,6}-/;
+const CODE_CONTRACT = /AP-[0-9]{1,6}-/;
+const TIMEOUT_THRESHOLD = 3000;
 
-// BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
-// BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" $1)
+const exec = util.promisify(childProcessExec);
 
-// if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-//   sed -i.bak -e "1s/^/[$BRANCH_NAME] /" $1
-// fi
+checkCommitMessage();
+hookCleanup();
+
+async function checkCommitMessage() {
+  const message = fs.readFileSync(process.argv[2], "utf8").trim();
+  let branchName = "";
+  try {
+    branchName = await getCurrentBranch();
+  } catch (e) {
+    handleGitBranchCommandError(e);
+  }
+
+  if (!BRANCH_CONTRACT.test(branchName)) {
+    handleBadBranchName();
+  }
+
+  if (!CODE_CONTRACT.test(message)) {
+    handleBadCommitMessage();
+  }
+  process.exit(0);
+}
+
+async function getCurrentBranch() {
+  const branchesOutput = await exec("git branch");
+  if (branchesOutput.stderr) {
+    throw new Error(branchesOutput.stderr);
+  }
+  const branches = branchesOutput.stdout;
+  return branches
+    .split("\n")
+    .find((b: string) => b.trim().charAt(0) === "*")
+    .trim()
+    .substring(2);
+}
+
+function handleGitBranchCommandError(e: any) {
+  console.log('Error executing "git branch" command');
+  console.log(e.getMessage());
+  console.log("----");
+  console.log("Your commit will be rejected. This script will terminate.");
+  process.exit(1);
+}
+
+function handleBadBranchName() {
+  console.log("There is something wrong with your branch name");
+  console.log(
+    "branch names in this project must adhere to this contract:" +
+      BRANCH_CONTRACT
+  );
+  console.log(
+    "Your commit will be rejected. You should rename your branch to a valid name, based on your configurations check git-graft.json"
+  );
+  process.exit(1);
+}
+
+function handleBadCommitMessage() {
+  console.log("There is something wrong with your commit message");
+  console.log(
+    "it should start with a valid Jira issue code, followed by a dash, thus adhering to this contract:" +
+      CODE_CONTRACT
+  );
+  console.log(
+    "your commit will be rejected. Please re-commit your work again with a proper commit message."
+  );
+  process.exit(1);
+}
+
+function hookCleanup() {
+  setTimeout(() => {
+    console.log(
+      "This is a timeout message from your commit-msg git hook. If you see this, something bad happened in your pre-commit hook, and it absolutely did not work as expected."
+    );
+    console.log(
+      " Your commit will be rejected. Please read any previous error message related to your commit message, and/or check the commit-msg git hook script."
+    );
+    console.log(
+      " You can find more info in this link: https://git-scm.com/book/uz/v2/Customizing-Git-An-Example-Git-Enforced-Policy"
+    );
+    process.exit(1);
+  }, TIMEOUT_THRESHOLD);
+}

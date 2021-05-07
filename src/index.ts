@@ -19,7 +19,7 @@ class GitGraft extends Command {
       const response = await prompt({
         type: "input",
         name: "Branches",
-        initial: "main",
+        initial: "main staging testing",
         message: "Branches the graft should ignore?",
       });
 
