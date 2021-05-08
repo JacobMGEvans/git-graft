@@ -46,7 +46,7 @@ class GitGraft extends Command {
 
       const currPermission = await accessCheck(outDir);
 
-      this.log("Current Git Graft Hook Permissions: ", currPermission);
+      this.log("Git Graft Hook Permissions: ", currPermission);
 
       if (currPermission === "Access Denied") {
         prompt({
