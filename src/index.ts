@@ -1,8 +1,7 @@
 import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
-import * as fsp from "fs/promises";
 import * as path from "path";
-import execa = require("execa");
+import * as fse from "fs-extra";
 
 class GitGraft extends Command {
   static description =
@@ -32,17 +31,14 @@ class GitGraft extends Command {
       });
 
       const inDir = path.resolve(__dirname, "../templates/git-graft-template");
-      const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
+      const outDir = path.join(process.cwd(), "./.git/hooks");
 
-      // const { stdout } = await execa("git", ["rev-parse --show-toplevel"]);
-      // this.log(stdout);
-
-      await fsp.writeFile(
+      await fse.writeFile(
         "./git-graft.json",
         JSON.stringify({ ...branchTypes, ...branchPattern }, null, 2)
       );
 
-      await fsp.writeFile(inDir, outDir);
+      await fse.copyFile(inDir, outDir);
 
       // fsp.chmod("./git-graft.json", 774);
     }
