@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const util = require("util");
-const gitGraftConfig = require("../git-graft.json"); //TODO this needs to dynamically find the root of the project
+const gitGraftConfig = require("../../git-graft.json"); //? should always be 2 directories deep?
 const childProcessExec = require("child_process").exec;
 
 const BRANCH_TYPES = RegExp(gitGraftConfig.branchTypes); // Get from config
