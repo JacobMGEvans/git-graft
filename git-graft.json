@@ -1,4 +1,4 @@
 {
-  "branchPattern": "test",
-  "branchTypes": "testing1"
+  "branchTypes": "feature testing hotfix bugfix",
+  "branchPattern": "ExampleCode-[0-9]{1,6}-.*"
 }

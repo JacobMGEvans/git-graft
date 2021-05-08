@@ -5,11 +5,11 @@ const util = require("util");
 const gitGraftConfig = require("../../git-graft.json"); //? should always be 2 directories deep?
 const childProcessExec = require("child_process").exec;
 
-const BRANCH_TYPES = RegExp(gitGraftConfig.branchTypes); // Get from config
+const BRANCH_TYPES = RegExp(gitGraftConfig.branchTypes);
 const BRANCH_CONTRACT = RegExp(
   `${BRANCH_TYPES}${gitGraftConfig.branchPattern}`
-); // Get from config
-const CODE_CONTRACT = RegExp(gitGraftConfig.branchPattern); // Get from config
+);
+const CODE_CONTRACT = RegExp(gitGraftConfig.branchPattern);
 
 const TIMEOUT_THRESHOLD = 3000;
 
