@@ -31,7 +31,7 @@ class GitGraft extends Command {
       });
 
       const inDir = path.resolve(__dirname, "../templates/git-graft-template");
-      const outDir = path.join(process.cwd(), "./.git/hooks");
+      const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
 
       await fse.writeFile(
         "./git-graft.json",

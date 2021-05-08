@@ -15,7 +15,6 @@
     "enquirer": "^2.3.6",
     "eslint-plugin-prettier": "^3.4.0",
     "execa": "^5.0.0",
-    "fs-extra": "^10.0.0",
     "tslib": "^1.14.1"
   },
   "devDependencies": {
