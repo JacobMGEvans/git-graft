@@ -30,7 +30,7 @@ class GitGraft extends Command {
       const branchPattern = await prompt({
         type: "input",
         name: "branchPattern",
-        initial: "EXAMPLE-[0-9]{1,6}-",
+        initial: "ExampleCode-[0-9]{1,6}-.*",
         message: "RegEx Pattern to match branches?",
       });
 
