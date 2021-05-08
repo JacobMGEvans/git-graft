@@ -1,7 +1,10 @@
 import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
 import * as path from "path";
-import * as fse from "fs-extra";
+import * as fsp from "fs/promises";
+import { accessCheck } from "./accessCheck";
+import { constants } from "fs";
+const { X_OK } = constants;
 
 class GitGraft extends Command {
   static description =
@@ -33,14 +36,34 @@ class GitGraft extends Command {
       const inDir = path.resolve(__dirname, "../templates/git-graft-template");
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
 
-      await fse.writeFile(
+      await fsp.writeFile(
         "./git-graft.json",
         JSON.stringify({ ...branchTypes, ...branchPattern }, null, 2)
       );
 
-      await fse.copyFile(inDir, outDir);
+      await fsp.copyFile(inDir, outDir);
+      this.log("Git Graft Hook Generation Complete.");
 
-      // fsp.chmod("./git-graft.json", 774);
+      const currPermission = await accessCheck(outDir);
+
+      this.log("Current Git Graft Hook Permissions: ", currPermission);
+
+      if (currPermission === "Access Denied") {
+        prompt({
+          type: "confirm",
+          name: "permit",
+          message:
+            "Git Graft needs execution permissions, would you like to proceed?",
+        }).then(async (answer: any) => {
+          if (answer.permit) {
+            fsp.chmod(outDir, "774");
+            this.log(
+              "Git Graft Updated Permissions: ",
+              await accessCheck(outDir)
+            );
+          }
+        });
+      }
     }
   }
 }
