@@ -1,4 +1,4 @@
 {
-  "branchTypes": "feature",
+  "branchTypes": "feature | testing",
   "branchPattern": "SG-[0-9]{1,6}-.*"
 }
