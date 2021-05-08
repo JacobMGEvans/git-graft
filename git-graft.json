@@ -1,4 +1,4 @@
 {
-    "branchPattern": "/SG-[0-9]{1,6}-/",
-    "branchTypes": "feature | hotfix | staging"
+  "branchPattern": "test",
+  "branchTypes": "testing1"
 }
