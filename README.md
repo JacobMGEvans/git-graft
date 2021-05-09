@@ -50,21 +50,23 @@ The [init](#init) generates a `git-graft.json` that has properties for a configu
 
 **branchTypes:**
 
-`RegExp List` -- Refers to GitFlows from DevOps best practices. [example](#regex-examples)
+`RegExp List` _required_ -- Refers to GitFlows from DevOps best practices. [example](#regex-examples)
 
 **branchPattern:**
 
-`RegExp` -- Refers to the code/ticket and name of the branch following the branchType. [example](#regex-examples)
+`RegExp` _required_ -- Refers to the code/ticket and name of the branch following the branchType. [example](#regex-examples)
 
-**ticketTypes:** Refers to the ticket code types, for example JIRA will use TICKETTYPE-{NUMBERS}. The Git Hook will use this config to construct a `RegExp` for the prepending to commit messages.
+**ticketTypes:**
+
+`string` _required_ -- Refers to the ticket code types, for example JIRA will use TICKETTYPE-{NUMBERS}. The Git Hook will use this config to construct a `RegExp` for the prepending to commit messages.
 
 **regExFlag:**
 
-`RegExp` -- Flag to pass into checks, default `gim`
+`RegExp` _optional_ -- Flags to pass into RegEx constructors. Default: `gim`
 
 **ticketOnly:**
 
-`Boolean` -- Used to determine if ticket/code or whole branch should used. Default: `true`
+`boolean` _optional_ -- Used to determine if ticket/code or whole branch should used. Default: `true`
 
 ---
 
