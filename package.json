@@ -46,7 +46,7 @@
   "keywords": [
     "oclif"
   ],
-  "license": "MIT",
+  "license": "GPLv3",
   "main": "lib/index.js",
   "oclif": {
     "bin": "git-graft"

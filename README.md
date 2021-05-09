@@ -28,12 +28,12 @@ Main Usage
 
 # Commands
 
-Git Graft currently only has one command for generating the Git Hook that will prepend the Branch to Commit Message.
+Git Graft currently only has one command for generating the Git Hook and configuration file.
 
 **run:**
 `npx git-graft init`
 
-The prompts will be used to construct the configuration file and ask to modify permissions to allow for execution of the generated Git Hook.
+The prompts will be used to construct the configuration file and ask to modify permissions to allow for execution of the generated Git Hook. Without permission to execute the Git Hook cannot work.
 
 # Configuration
 
