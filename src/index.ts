@@ -50,9 +50,10 @@ class GitGraft extends Command {
 
       const inDir = path.resolve(__dirname, "../templates/git-graft-template");
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
+      const outConfig = path.join(process.cwd(), "./git-graft.json");
 
       await fsp.writeFile(
-        "./git-graft.json",
+        outConfig,
         JSON.stringify(
           { ...branchTypes, ...ticketTypes, ...branchPattern, ...ticketOnly },
           null,
@@ -79,6 +80,13 @@ class GitGraft extends Command {
             this.log(
               "Git Graft Updated Permissions: ",
               await accessCheck(outDir)
+            );
+          } else {
+            await fsp.rm(outDir);
+            await fsp.rm(outConfig);
+
+            throw new Error(
+              "Git Graft Hook Generation Aborted. Generated File Removed."
             );
           }
         });
