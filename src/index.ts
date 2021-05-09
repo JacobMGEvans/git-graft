@@ -42,7 +42,7 @@ class GitGraft extends Command {
         initial: "ExampleCode-[0-9]{1,6}-.*",
         message: "RegEx Pattern to match branches?",
       });
-      const ticketOnly = prompt({
+      const ticketOnly = await prompt({
         type: "confirm",
         name: "ticketOnly",
         message: "Only prepend Ticket Type & Code",
