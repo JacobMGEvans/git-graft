@@ -1,7 +1,7 @@
 {
   "name": "git-graft",
   "description": "git hook generator that prepends branch name to commit message",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "author": "JacobMGEvans @JacobMGEvans",
   "bin": {
     "git-graft": "./bin/run"
@@ -54,7 +54,7 @@
   "repository": "JacobMGEvans/git-graft",
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc -b && mkdir ./lib/templates/ && cp ./src/templates/git-graft-template ./lib/templates/ && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },

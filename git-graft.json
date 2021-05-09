@@ -1,5 +1,6 @@
 {
   "branchTypes": "feature",
   "ticketTypes": "SG",
-  "branchPattern": "SG-[0-9]{1,}-.*"
+  "branchPattern": "SG-[0-9]{1,}-.*",
+  "ticketOnly": true
 }
