@@ -3,16 +3,16 @@
 const fs = require("fs");
 const util = require("util");
 const childProcessExec = require("child_process").exec;
-const GIT_GRAFT_CONFIG = require("../../git-graft.json");
+const {
+  branchTypes,
+  branchPattern,
+  regExFlag = "gim",
+  ticketOnly = true,
+} = require("../../git-graft.json");
 
-const BRANCH_CONTRACT = RegExp(
-  `(${GIT_GRAFT_CONFIG.branchTypes})\/${GIT_GRAFT_CONFIG.branchPattern}`,
-  GIT_GRAFT_CONFIG.regExFlag || "gim"
-);
-const CODE_COMMIT_CONTRACT = RegExp(
-  GIT_GRAFT_CONFIG.branchPattern,
-  GIT_GRAFT_CONFIG.regExFlag || "gim"
-);
+const BRANCH_CONTRACT = RegExp(`(${branchTypes})\/${branchPattern}`, regExFlag);
+const CODE_COMMIT_CONTRACT = RegExp(branchPattern, regExFlag);
+const TICKET_CONTRACT = RegExp(`${ticketTypes}-[0-9]{1,}`);
 
 const TIMEOUT_THRESHOLD = 5000;
 
@@ -30,7 +30,8 @@ async function prependBranchToCommit() {
   } catch (e) {
     handleGitBranchCommandError(e);
   }
-  fs.writeFileSync(process.argv[2], `${branchName}: ${commitMessage}`);
+  const branchOrTicket = ticketOnly ? TICKET_CONTRACT : BRANCH_CONTRACT;
+  fs.writeFileSync(process.argv[2], `${branchOrTicket}: ${commitMessage}`);
 
   checkCommitValidity(fs.readFileSync(process.argv[2], "utf8").trim());
   process.exit(0);

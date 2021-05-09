@@ -1,5 +1,7 @@
 {
   "branchTypes": "feature",
+  "ticketTypes": "SG",
   "branchPattern": "SG-[0-9]{1,6}-.*",
-  "regExFlag": "gi"
+  "regExFlag": "gi",
+  "ticketOnly": true
 }

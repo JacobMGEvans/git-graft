@@ -28,6 +28,8 @@ Main Usage
 
 # Commands
 
+## **Init**
+
 Git Graft currently only has one command for generating the Git Hook and configuration file.
 
 **run:**
@@ -35,17 +37,40 @@ Git Graft currently only has one command for generating the Git Hook and configu
 
 The prompts will be used to construct the configuration file and ask to modify permissions to allow for execution of the generated Git Hook. Without permission to execute the Git Hook cannot work.
 
+## TBD:
+
+**Doctor**
+
+- Will run permissions check on Git Graft Hook
+- Will run unit tests on Git Graft Hook code
+
 # Configuration
 
 Configuration relies on RegEx inputs to determine the patterns to validate the branch and resulting prepended commit message with branch
 information.
 
-**branchTypes:** Refers to GitFlows from DevOps best practices i.e. `feature/*`, `test/*`, `bugfix/*`
+## branchTypes:
 
-**branchPattern:** Refers to the code/ticket and name of the branch following the branchType i.e. `*/ZZ-1-anything`
+`RegEx list` -- Refers to GitFlows from DevOps best practices. [example](RegEx_Examples)
 
-**regExFlag:** RegEx flag to pass into checks, default `gim`
+## branchPattern:
 
-RegEx Example:
+`RegEx` -- Refers to the code/ticket and name of the branch following the branchType i.e. `*/ZZ-1-anything`
 
-https://regex101.com/r/TDEH27/1
+## ticketTypes
+
+## regExFlag:
+
+`RegEx` -- Flag to pass into checks, default `gim`
+
+## ticketOnly:
+
+`boolean` -- Used to determine if ticket/code or whole branch should used. Default: `true`
+
+---
+
+### RegEx Examples:
+
+#### branchPattern - https://regex101.com/r/TDEH27/1
+
+#### branchTypes - https://regex101.com/r/TDEH27/1
