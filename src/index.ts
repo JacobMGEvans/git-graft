@@ -48,7 +48,7 @@ class GitGraft extends Command {
         message: "Only prepend Ticket Type & Code",
       });
 
-      const inDir = path.resolve(__dirname, "../templates/git-graft-template");
+      const inDir = path.resolve(__dirname, "./templates/git-graft-template");
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
       const outConfig = path.join(process.cwd(), "./git-graft.json");
 
