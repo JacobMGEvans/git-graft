@@ -3,35 +3,36 @@
 const fs = require("fs");
 const util = require("util");
 const childProcessExec = require("child_process").exec;
-
 const GIT_GRAFT_CONFIG = require("../../git-graft.json");
-const BRANCH_CONTRACT = RegExp(
-  `${RegExp(GIT_GRAFT_CONFIG.branchTypes)}${GIT_GRAFT_CONFIG.branchPattern}`,
-  "gi"
-);
-const CODE_CONTRACT = RegExp(GIT_GRAFT_CONFIG.branchPattern);
 
-const TIMEOUT_THRESHOLD = 3000;
+const BRANCH_CONTRACT = RegExp(
+  `(${GIT_GRAFT_CONFIG.branchTypes})\/${GIT_GRAFT_CONFIG.branchPattern}`,
+  GIT_GRAFT_CONFIG.regExFlag || "gim"
+);
+const CODE_COMMIT_CONTRACT = RegExp(
+  GIT_GRAFT_CONFIG.branchPattern,
+  GIT_GRAFT_CONFIG.regExFlag || "gim"
+);
+
+const TIMEOUT_THRESHOLD = 5000;
 
 const exec = util.promisify(childProcessExec);
+const commitMessage = fs.readFileSync(process.argv[2], "utf8").trim();
 
-checkCommitMessage();
-hookEscapeHatch(); // Turn this into a bypass with a flag
+prependBranchToCommit();
+hookEscapeHatch();
 
-async function checkCommitMessage() {
-  const message = fs.readFileSync(process.argv[2], "utf8").trim();
+async function prependBranchToCommit() {
   let branchName = "";
   try {
     branchName = await getCurrentBranch();
+    checkBranchValidity(branchName);
   } catch (e) {
     handleGitBranchCommandError(e);
   }
-  if (!BRANCH_CONTRACT.test(branchName)) {
-    handleBadBranchName();
-  }
-  // if (!CODE_CONTRACT.test(message)) {
-  //   handleBadCommitMessage();
-  // }
+  fs.writeFileSync(process.argv[2], `${branchName}: ${commitMessage}`);
+
+  checkCommitValidity(fs.readFileSync(process.argv[2], "utf8").trim());
   process.exit(0);
 }
 
@@ -45,6 +46,18 @@ async function getCurrentBranch() {
     .find((str) => str.trim().charAt(0) === "*")
     .trim()
     .substring(2);
+}
+
+function checkBranchValidity(branchName) {
+  if (!BRANCH_CONTRACT.test(branchName)) {
+    handleBadBranchName();
+  }
+}
+
+function checkCommitValidity(commitMessage) {
+  if (!CODE_COMMIT_CONTRACT.test(commitMessage)) {
+    handleBadCommitMessage();
+  }
 }
 
 function handleGitBranchCommandError(e) {
