@@ -49,23 +49,23 @@ The prompts will be used to construct the configuration file and ask to modify p
 Configuration relies on RegEx inputs to determine the patterns to validate the branch and resulting prepended commit message with branch
 information.
 
-## branchTypes:
+**branchTypes:**
 
-`RegEx list` -- Refers to GitFlows from DevOps best practices. [example](RegEx_Examples)
+`RegExp List` -- Refers to GitFlows from DevOps best practices. [example](#regex-examples)
 
-## branchPattern:
+**branchPattern:**
 
-`RegEx` -- Refers to the code/ticket and name of the branch following the branchType i.e. `*/ZZ-1-anything`
+`RegExp` -- Refers to the code/ticket and name of the branch following the branchType. [example](#regex-examples)
 
-## ticketTypes
+**ticketTypes:** Refers to the ticket code types, for example JIRA will use TICKETTYPE-{NUMBERS}. The Git Hook will use this config to construct a `RegExp` for the prepending to commit messages.
 
-## regExFlag:
+**regExFlag:**
 
-`RegEx` -- Flag to pass into checks, default `gim`
+`RegExp` -- Flag to pass into checks, default `gim`
 
-## ticketOnly:
+**ticketOnly:**
 
-`boolean` -- Used to determine if ticket/code or whole branch should used. Default: `true`
+`Boolean` -- Used to determine if ticket/code or whole branch should used. Default: `true`
 
 ---
 
