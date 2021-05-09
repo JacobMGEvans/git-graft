@@ -6,7 +6,8 @@ const childProcessExec = require("child_process").exec;
 
 const GIT_GRAFT_CONFIG = require("../../git-graft.json");
 const BRANCH_CONTRACT = RegExp(
-  `${RegExp(GIT_GRAFT_CONFIG.branchTypes)}${GIT_GRAFT_CONFIG.branchPattern}`
+  `${RegExp(GIT_GRAFT_CONFIG.branchTypes)}${GIT_GRAFT_CONFIG.branchPattern}`,
+  "gi"
 );
 const CODE_CONTRACT = RegExp(GIT_GRAFT_CONFIG.branchPattern);
 
@@ -25,9 +26,9 @@ async function checkCommitMessage() {
   } catch (e) {
     handleGitBranchCommandError(e);
   }
-  // if (!BRANCH_CONTRACT.test(branchName)) {
-  //   handleBadBranchName();
-  // }
+  if (!BRANCH_CONTRACT.test(branchName)) {
+    handleBadBranchName();
+  }
   // if (!CODE_CONTRACT.test(message)) {
   //   handleBadCommitMessage();
   // }

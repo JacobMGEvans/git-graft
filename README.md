@@ -1,5 +1,4 @@
-git-graft
-=========
+# git-graft
 
 CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages
 
@@ -9,24 +8,29 @@ CLI tool that generates a configurable Git Hook that prepends branch name patter
 [![License](https://img.shields.io/npm/l/git-graft.svg)](https://github.com/JacobMGEvans/git-graft/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
-$ npm install -g git-graft
-$ git-graft COMMAND
-running command...
-$ git-graft (-v|--version|version)
+$ npx git-graft (-v|--version|version)
 git-graft/0.0.0 linux-x64 node-v14.16.1
-$ git-graft --help [COMMAND]
+$ npx git-graft --help [COMMAND]
 USAGE
   $ git-graft COMMAND
 ...
 ```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
 
-<!-- commandsstop -->
+<!-- usagestop -->
+
+# Commands
+
+# Git-Graft.json
+
+example:
+https://regex101.com/r/TDEH27/1
