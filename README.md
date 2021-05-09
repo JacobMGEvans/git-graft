@@ -32,10 +32,10 @@ Main Usage
 
 Git Graft currently only has one command for generating the Git Hook and configuration file.
 
-**run:**
+**example:**
 `npx git-graft init`
 
-The prompts will be used to construct the configuration file and ask to modify permissions to allow for execution of the generated Git Hook. Without permission to execute the Git Hook cannot work.
+The prompts will be used to construct the [configuration](#configuration) file and ask to modify permissions to allow for execution of the generated Git Hook. Without permission to execute the Git Hook cannot work.
 
 ## TBD:
 
@@ -46,8 +46,7 @@ The prompts will be used to construct the configuration file and ask to modify p
 
 # Configuration
 
-Configuration relies on RegEx inputs to determine the patterns to validate the branch and resulting prepended commit message with branch
-information.
+The [init](#init) generates a `git-graft.json` that has properties for a configurable Git Hook. Configuration the patterns to validate the branch and resulting prepended commit message with branch information.
 
 **branchTypes:**
 
