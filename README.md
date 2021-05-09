@@ -10,6 +10,7 @@ CLI tool that generates a configurable Git Hook that prepends branch name patter
 Features:
 
 - Generated Git Hook
+- Node bin file running JS and has no dependencies
 - Configurable [git-graft.json](#configuration)
 - Validates the commit message and branch
 - [Usage](#usage)
