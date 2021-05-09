@@ -3,19 +3,23 @@ import { prompt } from "enquirer";
 import * as path from "path";
 import * as fsp from "fs/promises";
 import { accessCheck } from "./accessCheck";
-import { constants } from "fs";
-const { X_OK } = constants;
 
 class GitGraft extends Command {
   static description =
-    "init will prompt for configuration inputs for the git hook, then generate git-graft.json and git hook file. ";
+    "CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages.";
 
   static flags = {
     version: flags.version({ char: "v" }),
     help: flags.help({ char: "h" }),
   };
 
-  static args = [{ name: "init" }];
+  static args = [
+    {
+      name: "init",
+      description:
+        "init will prompt for configuration inputs for the git hook, then generate git-graft.json and the Git Hook file. ",
+    },
+  ];
 
   async run() {
     const { args } = this.parse(GitGraft);
@@ -26,11 +30,22 @@ class GitGraft extends Command {
         initial: "feature testing hotfix bugfix",
         message: "Branch Gitflow types to include?",
       });
+      const ticketTypes = await prompt({
+        type: "input",
+        name: "ticketTypes",
+        initial: "ZZ",
+        message: "Ticket code?",
+      });
       const branchPattern = await prompt({
         type: "input",
         name: "branchPattern",
         initial: "ExampleCode-[0-9]{1,6}-.*",
         message: "RegEx Pattern to match branches?",
+      });
+      const ticketOnly = prompt({
+        type: "confirm",
+        name: "ticketOnly",
+        message: "Only prepend Ticket Type & Code",
       });
 
       const inDir = path.resolve(__dirname, "../templates/git-graft-template");
@@ -38,7 +53,11 @@ class GitGraft extends Command {
 
       await fsp.writeFile(
         "./git-graft.json",
-        JSON.stringify({ ...branchTypes, ...branchPattern }, null, 2)
+        JSON.stringify(
+          { ...branchTypes, ...ticketTypes, ...branchPattern, ...ticketOnly },
+          null,
+          2
+        )
       );
 
       await fsp.copyFile(inDir, outDir);
