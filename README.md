@@ -50,7 +50,7 @@ The [init](#init) generates a `git-graft.json` that has properties for a configu
 
 **branchTypes:**
 
-`RegExp List` _required_ -- Refers to GitFlows from DevOps best practices. [example](#regex-examples)
+`RegExp List` _required_ -- Refers to GitFlows from DevOps best practices. Git Graft Hook will wrap the list in `()` and the constructor includes the forward slash & escape `\/` [example](#regex-examples)
 
 **branchPattern:**
 
@@ -72,6 +72,6 @@ The [init](#init) generates a `git-graft.json` that has properties for a configu
 
 ### RegEx Examples:
 
-#### branchPattern - https://regex101.com/r/TDEH27/1
+#### branchPattern - https://regex101.com/r/ewym8B/1
 
-#### branchTypes - https://regex101.com/r/TDEH27/1
+#### branchTypes - https://regex101.com/r/KNZio4/1
