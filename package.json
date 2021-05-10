@@ -49,7 +49,7 @@
   "keywords": [
     "oclif", "git", "git-hook", "npx", "commit", "commit-msg"
   ],
-  "license": "GPLv3",
+  "license": "GNU GPLv3",
   "main": "lib/index.js",
   "oclif": {
     "bin": "git-graft"

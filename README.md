@@ -5,7 +5,7 @@
 [![Downloads/week](https://img.shields.io/npm/dw/git-graft.svg)](https://npmjs.org/package/git-graft)
 [![License](https://img.shields.io/npm/l/git-graft.svg)](https://github.com/JacobMGEvans/git-graft/blob/master/package.json)
 
-CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages.
+NPX CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages.
 
 Features:
 
