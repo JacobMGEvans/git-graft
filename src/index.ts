@@ -1,8 +1,13 @@
 import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
+import * as chalk from "chalk";
+import * as ora from "ora";
+
 import * as path from "path";
 import * as fsp from "fs/promises";
 import { accessCheck } from "./accessCheck";
+
+const pkg = require("../package.json");
 
 class GitGraft extends Command {
   static description =
@@ -17,7 +22,7 @@ class GitGraft extends Command {
     {
       name: "init",
       description:
-        "init will prompt for configuration inputs for the git hook, then generate git-graft.json and the Git Hook file. ",
+        "init will prompt for configuration inputs, then generate git-graft.json and the Git Hook file. ",
     },
   ];
 
