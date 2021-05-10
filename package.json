@@ -1,7 +1,7 @@
 {
   "name": "git-graft",
   "description": "git hook generator that prepends branch name to commit message",
-  "version": "0.0.10-alpha",
+  "version": "0.0.11-alpha",
   "author": "JacobMGEvans @JacobMGEvans",
   "bin": {
     "git-graft": "./bin/run"
@@ -49,7 +49,7 @@
   "keywords": [
     "oclif", "git", "git-hook", "npx", "commit", "commit-msg"
   ],
-  "license": "GNU GPLv3",
+  "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
     "bin": "git-graft"
