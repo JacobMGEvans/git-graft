@@ -47,7 +47,7 @@
   ],
   "homepage": "https://github.com/JacobMGEvans/git-graft",
   "keywords": [
-    "oclif"
+    "oclif", "git", "git-hook", "npx", "commit", "commit-msg"
   ],
   "license": "GPLv3",
   "main": "lib/index.js",
