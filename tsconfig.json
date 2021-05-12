@@ -7,10 +7,12 @@
     "rootDir": "src",
     "strict": true,
     "target": "es2017",
-    "types": ["node"]
-    
+    "types": [
+      "node"
+    ]
   },
   "include": [
-    "src/**/*"
-, "src/templates/git-graft-template"  ]
+    "src/**/*",
+    "src/templates/git-graft-template"
+  ]
 }

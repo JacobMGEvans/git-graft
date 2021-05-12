@@ -7,7 +7,7 @@
 
 NPX CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages.
 
-Features:
+**Features:**
 
 - Generated Git Hook
 - Hook is a bin file running Node & no dependencies
@@ -15,6 +15,10 @@ Features:
 - Validates the commit message and branch
 - [Usage](#usage)
 - [Commands](#commands)
+
+WIP:
+
+- Zero Config -- following GitFlow DevOps best practices.
 
 # Usage
 
@@ -72,6 +76,8 @@ The [init](#init) generates a `git-graft.json` that has properties for a configu
 ---
 
 ### RegEx Examples:
+
+#### Zero Config RegExp Usage - https://regex101.com/r/aZmpNf/1
 
 #### branchPattern - https://regex101.com/r/ewym8B/1
 

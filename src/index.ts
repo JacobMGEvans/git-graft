@@ -2,12 +2,10 @@ import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
 import * as chalk from "chalk";
 import * as ora from "ora";
-
 import * as path from "path";
 import * as fsp from "fs/promises";
 import { accessCheck } from "./accessCheck";
-
-const pkg = require("../package.json");
+import { generateConfig } from "./generateConfig";
 
 class GitGraft extends Command {
   static description =
@@ -29,42 +27,20 @@ class GitGraft extends Command {
   async run() {
     const { args } = this.parse(GitGraft);
     if (args.init) {
-      const branchTypes = await prompt({
-        type: "input",
-        name: "branchTypes",
-        initial: "feature testing hotfix bugfix",
-        message: "Branch Gitflow types to include?",
-      });
-      const ticketTypes = await prompt({
-        type: "input",
-        name: "ticketTypes",
-        initial: "ZZ",
-        message: "Ticket code?",
-      });
-      const branchPattern = await prompt({
-        type: "input",
-        name: "branchPattern",
-        initial: "ExampleCode-[0-9]{1,6}-.*",
-        message: "RegEx Pattern to match branches?",
-      });
-      const ticketOnly = await prompt({
+      const zeroConfig: { result: boolean } = await prompt({
         type: "confirm",
-        name: "ticketOnly",
-        message: "Only prepend Ticket Type & Code",
+        name: "result",
+        message:
+          "Optional Zero Config \n This will make assumptions about your Gitflow DevOps i.e. feature/Ticket-####-description",
       });
+
+      let outConfig: string;
+      if (!zeroConfig.result) {
+        outConfig = await generateConfig();
+      }
 
       const inDir = path.resolve(__dirname, "./templates/git-graft-template");
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
-      const outConfig = path.join(process.cwd(), "./git-graft.json");
-
-      await fsp.writeFile(
-        outConfig,
-        JSON.stringify(
-          { ...branchTypes, ...ticketTypes, ...branchPattern, ...ticketOnly },
-          null,
-          2
-        )
-      );
 
       await fsp.copyFile(inDir, outDir);
       this.log("Git Graft Hook Generation Complete.");
@@ -87,12 +63,16 @@ class GitGraft extends Command {
               await accessCheck(outDir)
             );
           } else {
-            await fsp.rm(outDir);
-            await fsp.rm(outConfig);
+            try {
+              await fsp.rm(outDir);
+              outConfig && (await fsp.rm(outConfig));
 
-            throw new Error(
-              "Git Graft Hook Generation Aborted. Generated File Removed."
-            );
+              throw new Error(
+                "Git Graft Hook Generation Aborted. Generated Files Removed."
+              );
+            } catch (e) {
+              this.log(e);
+            }
           }
         });
       }
