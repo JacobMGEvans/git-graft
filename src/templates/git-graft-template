@@ -50,7 +50,10 @@ async function prependBranchToCommit() {
     : branchName;
 
   fs.writeFileSync(process.argv[2], `${branchOrTicket}: ${commitMessage}`);
-  checkCommitValidity(fs.readFileSync(process.argv[2], "utf8").trim());
+  checkCommitValidity(
+    fs.readFileSync(process.argv[2], "utf8").trim(),
+    ticketOnly
+  );
   process.exit(0);
 }
 
@@ -72,9 +75,9 @@ function checkBranchValidity(branchName) {
   }
 }
 
-function checkCommitValidity(commitMessage) {
-  console.log("COMMIT MESSAGE", commitMessage);
-  if (!TICKET_CONTRACT.test(commitMessage)) {
+function checkCommitValidity(commitMessage, isTicket) {
+  const checkContract = isTicket ? TICKET_CONTRACT : CODE_COMMIT_CONTRACT;
+  if (!checkContract.test(commitMessage)) {
     handleBadCommitMessage();
   }
 }
