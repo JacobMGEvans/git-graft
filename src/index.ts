@@ -30,8 +30,9 @@ class GitGraft extends Command {
       const zeroConfig: { result: boolean } = await prompt({
         type: "confirm",
         name: "result",
-        message:
-          "Optional Zero Config \n This will make assumptions about your Gitflow DevOps i.e. feature/Ticket-####-description",
+        message: `${chalk.bold.white(
+          "Would you like to utilize Zero Config"
+        )} \n This will make assumptions about your Gitflow DevOps i.e. feature/Ticket-####-description`,
       });
 
       let outConfig: string;
@@ -43,38 +44,39 @@ class GitGraft extends Command {
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
 
       await fsp.copyFile(inDir, outDir);
-      this.log("Git Graft Hook Generation Complete.");
+      this.log(chalk.bold.greenBright("Git Graft Hook Generation Complete."));
 
       const currPermission = await accessCheck(outDir);
 
-      this.log("Git Graft Hook Permissions: ", currPermission);
+      this.log(
+        "Git Graft Hook Permissions: ",
+        chalk.bold.yellowBright(currPermission)
+      );
 
       if (currPermission === "Access Denied") {
         prompt({
           type: "confirm",
           name: "permit",
-          message:
-            "Git Graft needs execution permissions, would you like to proceed?",
+          message: `${chalk.bold.white(
+            "Git Graft needs execution permissions."
+          )} \n Would you like to proceed?`,
         }).then(async (answer: any) => {
           if (answer.permit) {
             fsp.chmod(outDir, "774");
             this.log(
               "Git Graft Updated Permissions: ",
-              await accessCheck(outDir)
+              chalk.bold.green(await accessCheck(outDir))
             );
           } else {
-            try {
-              await fsp.rm(outDir);
-              outConfig && (await fsp.rm(outConfig));
+            await fsp.rm(outDir);
+            outConfig && (await fsp.rm(outConfig));
 
-              throw new Error(
-                chalk.redBright(
-                  "Git Graft Hook Generation Aborted. Generated Files Removed."
-                )
-              );
-            } catch (e) {
-              this.log(e);
-            }
+            this.log(
+              chalk.bold.redBright(
+                "Git Graft Hook Generation Aborted. Generated Files Removed."
+              )
+            );
+            process.exit(0);
           }
         });
       }
