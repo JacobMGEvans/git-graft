@@ -77,7 +77,7 @@ The [init](#init) generates a `git-graft.json` that has properties for a configu
 
 ### RegEx Examples:
 
-#### Zero Config RegExp Usage - https://regex101.com/r/aZmpNf/1
+#### Zero Config RegExp Usage - https://regex101.com/r/UKwIK2/1
 
 #### branchPattern - https://regex101.com/r/ewym8B/1
 

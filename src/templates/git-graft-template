@@ -5,18 +5,17 @@ const util = require("util");
 const childProcessExec = require("child_process").exec;
 
 let gitGraftJSON;
-fs.access("../../git-graft.json", fs.F_OK, (err) => {
-  if (err) {
-    gitGraftJSON = {
-      branchTypes: "feature|bugfix|hotfix|testing|tests|test",
-      branchPattern: "[a-z][A-Z]-[0-9]{1,}-.*",
-      ticketTypes: `[a-zA-Z]`,
-      regExFlag: "gim",
-      ticketOnly: true,
-    };
-  }
+if (!fs.existsSync(`${__dirname}../../git-graft.json`)) {
+  gitGraftJSON = {
+    branchTypes: "feature|bugfix|hotfix|testing|tests|test",
+    branchPattern: "[a-zA-Z]+-[0-9]{1,}-.*",
+    ticketTypes: `[a-zA-Z]+`,
+    regExFlag: "gim",
+    ticketOnly: true,
+  };
+} else {
   gitGraftJSON = require("../../git-graft.json");
-});
+}
 
 const {
   branchTypes,
@@ -28,7 +27,7 @@ const {
 
 const BRANCH_CONTRACT = RegExp(`(${branchTypes})\/${branchPattern}`, regExFlag);
 const CODE_COMMIT_CONTRACT = RegExp(branchPattern, regExFlag);
-const TICKET_CONTRACT = RegExp(`${ticketTypes}-[0-9]{1,}`);
+const TICKET_CONTRACT = RegExp(`${ticketTypes}-[0-9]{1,}.*`);
 
 const TIMEOUT_THRESHOLD = 5000;
 
@@ -51,7 +50,7 @@ async function prependBranchToCommit() {
     : branchName;
 
   fs.writeFileSync(process.argv[2], `${branchOrTicket}: ${commitMessage}`);
-
+  console.log(fs.readFileSync(process.argv[2], "utf8").trim());
   checkCommitValidity(fs.readFileSync(process.argv[2], "utf8").trim());
   process.exit(0);
 }
@@ -101,8 +100,8 @@ function handleBadBranchName() {
 
 function handleBadCommitMessage() {
   console.log(
-    `There is something wrong with your commit message \n`,
-    `it should start with a valid Jira issue code, followed by a dash, thus adhering to this contract: ${CODE_CONTRACT} \n`,
+    `There is something wrong with your commit message. \n`,
+    `It should start with a valid JIRA issue code, followed by a dash, thus adhering to this contract: ${CODE_COMMIT_CONTRACT} \n`,
     `your commit will be rejected. Please re-commit your work again with a proper commit message.`
   );
   process.exit(1);
