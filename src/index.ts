@@ -1,7 +1,7 @@
 import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
 import * as chalk from "chalk";
-import * as ora from "ora";
+// import * as ora from "ora";
 import * as path from "path";
 import * as fsp from "fs/promises";
 import { accessCheck } from "./accessCheck";
