@@ -68,7 +68,9 @@ class GitGraft extends Command {
               outConfig && (await fsp.rm(outConfig));
 
               throw new Error(
-                "Git Graft Hook Generation Aborted. Generated Files Removed."
+                chalk.redBright(
+                  "Git Graft Hook Generation Aborted. Generated Files Removed."
+                )
               );
             } catch (e) {
               this.log(e);
