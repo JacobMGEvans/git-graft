@@ -8,7 +8,6 @@ type branchPattern = { branchPattern: string };
 type ticketOnly = { ticketOnly: boolean };
 
 export async function generateConfig() {
-  // TODO: Convert into one Form enquirer prompt
   const branchTypes: branchTypes = await prompt({
     type: "input",
     name: "branchTypes",

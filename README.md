@@ -10,15 +10,12 @@ NPX CLI tool that generates a configurable Git Hook that prepends branch name pa
 **Features:**
 
 - Generated Git Hook
-- Hook is a bin file running Node & no dependencies
+- Zero Config Option -- following GitFlow DevOps best practices.
 - Configurable [git-graft.json](#configuration)
+- Hook is a bin file running Node & no dependencies
 - Validates the commit message and branch
 - [Usage](#usage)
 - [Commands](#commands)
-
-WIP:
-
-- Zero Config -- following GitFlow DevOps best practices.
 
 # Usage
 

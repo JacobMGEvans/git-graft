@@ -12,31 +12,30 @@
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
     "chalk": "^4.1.1",
-    "conf": "^10.0.1",
     "enquirer": "^2.3.6",
     "eslint-plugin-prettier": "^3.4.0",
     "execa": "^5.0.0",
     "ora": "^5.4.0",
-    "tslib": "^1.14.1"
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "^1.2.8",
-    "@types/chai": "^4.2.17",
+    "@types/chai": "^4.2.18",
     "@types/fs-extra": "^9.0.11",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^15.0.2",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.0.3",
     "@types/update-notifier": "^5.0.0",
     "chai": "^4.3.4",
     "eslint": "^7.26.0",
     "eslint-config-oclif": "^3.1.0",
-    "eslint-config-oclif-typescript": "^0.1.0",
+    "eslint-config-oclif-typescript": "^0.2.0",
     "eslint-config-prettier": "^8.3.0",
     "mocha": "^8.4.0",
-    "nyc": "^14.1.1",
-    "prettier": "^2.2.1",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.9"
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -47,7 +46,12 @@
   ],
   "homepage": "https://github.com/JacobMGEvans/git-graft",
   "keywords": [
-    "oclif", "git", "git-hook", "npx", "commit", "commit-msg"
+    "oclif",
+    "git",
+    "git-hook",
+    "npx",
+    "commit",
+    "commit-msg"
   ],
   "license": "MIT",
   "main": "lib/index.js",
