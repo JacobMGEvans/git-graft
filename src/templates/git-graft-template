@@ -27,7 +27,7 @@ const {
 
 const BRANCH_CONTRACT = RegExp(`(${branchTypes})\/${branchPattern}`, regExFlag);
 const CODE_COMMIT_CONTRACT = RegExp(branchPattern, regExFlag);
-const TICKET_CONTRACT = RegExp(`${ticketTypes}-[0-9]{1,}.*`);
+const TICKET_CONTRACT = RegExp(`${ticketTypes}-[0-9]{1,}`);
 
 const TIMEOUT_THRESHOLD = 5000;
 
@@ -50,7 +50,6 @@ async function prependBranchToCommit() {
     : branchName;
 
   fs.writeFileSync(process.argv[2], `${branchOrTicket}: ${commitMessage}`);
-  console.log(fs.readFileSync(process.argv[2], "utf8").trim());
   checkCommitValidity(fs.readFileSync(process.argv[2], "utf8").trim());
   process.exit(0);
 }
@@ -74,7 +73,8 @@ function checkBranchValidity(branchName) {
 }
 
 function checkCommitValidity(commitMessage) {
-  if (!CODE_COMMIT_CONTRACT.test(commitMessage)) {
+  console.log("COMMIT MESSAGE", commitMessage);
+  if (!TICKET_CONTRACT.test(commitMessage)) {
     handleBadCommitMessage();
   }
 }
