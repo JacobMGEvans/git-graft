@@ -10,7 +10,8 @@ NPX CLI tool that generates a configurable Git Hook that prepends branch name pa
 **Features:**
 
 - Generated Git Hook
-- Zero Config Option -- following GitFlow DevOps best practices.
+<!-- Find better documentation for GitFlow -- GitKraken is pretty good-->
+- Zero Config Option -- Utilizing [GitFlow best practices](https://www.gitkraken.com/learn/git/git-flow).
 - Configurable [git-graft.json](#configuration)
 - Hook is a bin file running Node & no dependencies
 - Validates the commit message and branch
@@ -52,7 +53,7 @@ The [init](#init) generates a `git-graft.json` if **Zero-Config** isn't chosen. 
 
 **branchTypes:**
 
-`RegExp List` _required_ -- Refers to GitFlows from DevOps best practices. Git Graft Hook will wrap the list in `()` and the constructor includes the forward slash & escape `\/` [example](#regex-examples)
+`RegExp List` _required_ -- Refers to GitFlow best practices. Git Graft Hook will wrap the list in `()` and the constructor includes the forward slash & escape `\/` [example](#regex-examples)
 
 **branchPattern:**
 

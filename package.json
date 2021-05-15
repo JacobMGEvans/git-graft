@@ -1,7 +1,7 @@
 {
   "name": "git-graft",
   "description": "git hook generator that prepends branch name to commit message",
-  "version": "0.0.16-alpha",
+  "version": "0.0.17-alpha",
   "author": "JacobMGEvans",
   "bin": {
     "git-graft": "./bin/run"
