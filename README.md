@@ -46,9 +46,9 @@ The prompts will be used to construct the [configuration](#configuration) file a
 - Will run permissions check on Git Graft Hook
 - Will run unit tests on Git Graft Hook code
 
-# Configuration
+# Configuration File
 
-The [init](#init) generates a `git-graft.json` that has properties for a configurable Git Hook. Configuration the patterns to validate the branch and resulting prepended commit message with branch information.
+The [init](#init) generates a `git-graft.json` if **Zero-Config** isn't chosen. The config has properties for a configurable Git Hook. Configuration the patterns to validate the branch and resulting prepended commit message with branch information.
 
 **branchTypes:**
 

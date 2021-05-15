@@ -1,7 +1,7 @@
 import { Command, flags } from "@oclif/command";
 import { prompt } from "enquirer";
 import * as chalk from "chalk";
-// import * as ora from "ora";
+import * as ora from "ora";
 import * as path from "path";
 import * as fsp from "fs/promises";
 import { accessCheck } from "./accessCheck";
@@ -26,6 +26,8 @@ class GitGraft extends Command {
 
   async run() {
     const { args } = this.parse(GitGraft);
+    const spinner = ora();
+
     if (args.init) {
       const zeroConfig: { result: boolean } = await prompt({
         type: "confirm",
@@ -44,7 +46,6 @@ class GitGraft extends Command {
       const outDir = path.join(process.cwd(), "./.git/hooks/commit-msg");
 
       await fsp.copyFile(inDir, outDir);
-      this.log(chalk.bold.greenBright("Git Graft Hook Generation Complete."));
 
       const currPermission = await accessCheck(outDir);
 
