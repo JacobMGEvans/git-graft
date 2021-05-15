@@ -32,7 +32,7 @@ Main Usage
 
 ## **Init**
 
-Git Graft currently only has one command for generating the Git Hook and configuration file.
+Git Graft currently only has one command for generating the Git Hook with Zero-Config or a configuration file.
 
 **example:**
 `npx git-graft init`
