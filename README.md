@@ -10,8 +10,13 @@ NPX CLI tool that generates a configurable Git Hook that prepends branch name pa
 **Features:**
 
 - Generated Git Hook
-<!-- Find better documentation for GitFlow -- GitKraken is pretty good-->
-- Zero Config Option -- Utilizing [GitFlow best practices](https://www.gitkraken.com/learn/git/git-flow).
+- Zero Config Option -- Utilizing GitFlow
+
+  **Best Practice Examples**
+
+  - [GitKraken](https://www.gitkraken.com/learn/git/git-flow)
+  - [GitHub](https://www.gitkraken.com/learn/git/best-practices/git-branch-strategy#github-flow-branch-strategy)
+
 - Configurable [git-graft.json](#configuration)
 - Hook is a bin file running Node & no dependencies
 - Validates the commit message and branch
