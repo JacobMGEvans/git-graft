@@ -1,10 +1,26 @@
 {
   "name": "git-graft",
-  "description": "git hook generator that prepends branch name to commit message",
-  "version": "0.0.19-alpha",
-  "author": "JacobMGEvans",
+  "description": " NPX CLI tool that generates a configurable Git Hook that prepends branch name patterns to commit messages.",
+  "version": "0.1.0",
+  "author": "JacobMGEvans @JacobMGEvans",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "bin": {
     "git-graft": "./bin/run"
+  },
+  "repository": "JacobMGEvans/git-graft",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "git-graft"
+  },
+  "scripts": {
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && mkdir ./lib/templates/ && cp ./src/templates/git-graft-template ./lib/templates/ && oclif-dev readme",
+    "test": "nyc --extension .ts mocha -r ts-node/register \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
   },
   "bugs": "https://github.com/JacobMGEvans/git-graft/issues",
   "dependencies": {
@@ -13,7 +29,6 @@
     "@oclif/plugin-help": "^3.2.2",
     "chalk": "^4.1.1",
     "enquirer": "^2.3.6",
-    "eslint-plugin-prettier": "^3.4.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -28,14 +43,12 @@
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.2.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "prettier": "^2.3.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
-  },
-  "engines": {
-    "node": ">=12.0.0"
   },
   "files": [
     "/bin",
@@ -50,17 +63,5 @@
     "commit",
     "commit-msg"
   ],
-  "license": "MIT",
-  "main": "lib/index.js",
-  "oclif": {
-    "bin": "git-graft"
-  },
-  "repository": "JacobMGEvans/git-graft",
-  "scripts": {
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && mkdir ./lib/templates/ && cp ./src/templates/git-graft-template ./lib/templates/ && oclif-dev readme",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
-  },
   "types": "lib/index.d.ts"
 }

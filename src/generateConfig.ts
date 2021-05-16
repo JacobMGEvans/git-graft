@@ -7,7 +7,7 @@ type ticketTypes = { ticketTypes: string };
 type branchPattern = { branchPattern: string };
 type ticketOnly = { ticketOnly: boolean };
 
-export async function generateConfig() {
+export async function generateConfig(): Promise<string> {
   const branchTypes: branchTypes = await prompt({
     type: "input",
     name: "branchTypes",
