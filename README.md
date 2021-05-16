@@ -38,19 +38,30 @@ Main Usage
 
 ## **Init**
 
-Git Graft currently only has one command for generating the Git Hook with Zero-Config or a configuration file.
+`init` will generate the Git Hook with Zero-Config or a configuration file based on prompts.
 
 **example:**
-`npx git-graft init`
+
+```sh
+npx git-graft init
+```
 
 The prompts will be used to construct the [configuration](#configuration) file and ask to modify permissions to allow for execution of the generated Git Hook. Without permission to execute the Git Hook cannot work.
 
-## TBD:
+## **Doctor**
 
-**Doctor**
+Will run file, directory, and permissions check on Git Graft Hook.
 
-- Will run permissions check on Git Graft Hook
-- Will run unit tests on Git Graft Hook code
+**example:**
+
+```sh-session
+// automatically gets filepath
+$ npx git-graft doctor
+
+// user gives filepath
+$ npx git-graft doctor [FILEPATH] --force
+
+```
 
 # Configuration File
 
