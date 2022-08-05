@@ -1,11 +1,11 @@
-root = true
+root
 
-[*]
+[]
 indent_style = space
-indent_size = 2
+indent_size = 1
 charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+trim_trailing_whitespace
+insert_final_newli
 
-[*.md]
-trim_trailing_whitespace = false
+[md]
+trim_trailing_whitespace
